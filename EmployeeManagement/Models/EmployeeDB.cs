@@ -46,6 +46,23 @@ namespace EmployeeManagement.Models
             return data;
         }
 
+        public int InsertUsers(EmployeeUsers users)
+        {
+            SqlConnection con = new SqlConnection(Connection);
+            int result;
+            try
+            {
+                con.Open();
+                string query = "Insert into EmployeeUser Values('" + users.UserName + "','" + users.Password + "')";
+                SqlCommand cmd = new SqlCommand(query, con);
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return result;
+        }
 
         public int Insert(Employee model)
         {

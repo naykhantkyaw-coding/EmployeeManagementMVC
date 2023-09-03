@@ -8,5 +8,7 @@ namespace EmployeeManagement.Models
         List<Employee> GetData();
         int Insert(Employee model);
         int Update(Employee model);
+
+        int InsertUsers(EmployeeUsers model);
     }
 }
