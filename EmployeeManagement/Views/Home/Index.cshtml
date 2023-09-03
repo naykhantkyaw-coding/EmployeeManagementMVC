@@ -1,8 +1,19 @@
-﻿@{
+﻿@model EmployeeManagement.Models.CacheViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <h4> Current Time: @DateTime.Now.ToString()</h4>
+    </div>
+    <div class="col-md-3">
+        <h4>First Time: @(Model.CacheTime)</h4>
+    </div>
 </div>

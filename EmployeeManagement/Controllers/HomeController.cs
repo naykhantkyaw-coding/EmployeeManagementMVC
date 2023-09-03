@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,35 @@ namespace EmployeeManagement.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IMemoryCache _memoryCache;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IMemoryCache memoryCache)
         {
             _logger = logger;
+            _memoryCache = memoryCache;
         }
 
         public IActionResult Index()
         {
-            return View();
+            CacheViewModel model = new CacheViewModel();
+            model.CacheTime = GetTime();
+            return View(model);
+        }
+
+        public string GetTime()
+        {
+            var cacheKey = "TheTime";
+            DateTime exitingTime;
+            if(_memoryCache.TryGetValue(cacheKey, out exitingTime))
+            {
+                return "Fetch Time from Cache: "+ exitingTime.ToString();
+            }
+            else
+            {
+                exitingTime = DateTime.Now;
+                _memoryCache.Set(cacheKey, exitingTime);
+                return "Added to cache : " + exitingTime.ToString();
+            }
         }
 
         public IActionResult Privacy()
