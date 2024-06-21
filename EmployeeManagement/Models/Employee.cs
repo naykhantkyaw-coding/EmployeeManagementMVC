@@ -1,4 +1,4 @@
-﻿namespace EmployeeManagement.Models
+namespace EmployeeManagement.Models
 {
     public class Employee
     {
@@ -7,6 +7,5 @@
         public string Position { get; set; }
         public string Office { get; set; }
         public int Salary { get; set; }
-
     }
 }
